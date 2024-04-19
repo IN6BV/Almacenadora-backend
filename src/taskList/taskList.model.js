@@ -18,16 +18,11 @@ const TaskListSchema = mongoose.Schema({
     estado:{
         type: Boolean,
         default: false
-    }
+    },
     empleadoAsignado:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     }
 })
-
-TaskListSchema.methods.toJSON = function(){
-    const {__v, ...task} = this.toObject();
-    return task;
-}
 
 export default mongoose.model('TaskList', TaskListSchema);

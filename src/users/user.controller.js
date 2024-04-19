@@ -5,6 +5,7 @@ import bycryptjs from 'bcryptjs';
 
 export const userPost = async (req = request, res = response) => {
     const {nombre, apellido} = req.body;
+
     const email = crearCorreo(nombre, apellido);
     const password = generarContrasena();
 

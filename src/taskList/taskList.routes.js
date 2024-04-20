@@ -1,7 +1,8 @@
 import { Router } from "express";
 import { check } from "express-validator";
-import { createTask, getTasksIncomplete, getTasksComplete } from "./taskList.controller.js";
+import { createTask, getTasksIncomplete, getTasksComplete, updateMyTask } from "./taskList.controller.js";
 import { validarJWT } from "../middlewares/validar-jwt.js";
+import { existeTastListPorId } from "../helpers/db-validators.js";
 
 const router = Router();
 
@@ -27,5 +28,11 @@ router.get(
         validarJWT
     ], getTasksComplete);
 
+router.put(
+    "/update/:id",
+    [
+        validarJWT,
+        check("id").custom(existeTastListPorId),
+    ], updateMyTask);
 
 export default router;

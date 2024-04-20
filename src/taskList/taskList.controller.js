@@ -22,10 +22,7 @@ export const getTasksIncomplete = async (req, res) => {
 
     const [incompleteTasks, total] = await Promise.all([
         TaskList.find(query),
-        TaskList.countDocuments(query).populate({
-            path: "empleadoAsignado",
-            select: "nombre -_id"
-        })
+        TaskList.countDocuments(query)
     ]);
 
     res.status(200).json({
@@ -40,11 +37,8 @@ export const getTasksComplete = async (req, res) => {
 
     const [completeTasks, total] = await Promise.all([
         TaskList.find(query),
-        TaskList.countDocuments(query).populate({
-            path: "empleadoAsignado",
-            select: "nombre -_id"
-        })
-    ]);
+        TaskList.countDocuments(query)
+        ]);
 
     res.status(200).json({
         msg: "Tareas completas",
@@ -53,3 +47,24 @@ export const getTasksComplete = async (req, res) => {
     });    
 }
 
+export const updateMyTask = async (req, res) => {
+    const {id} = req.params;
+    const {uid} = req.user;
+
+    const task = await TaskList.findById(id);
+
+    if(task.empleadoAsignado.toString() !== uid){
+        return res.status(401).json({
+            msg: "No tienes permisos para editar esta tarea"
+        });
+    } else {
+        const {_id, estado, empleadoAsignado, ...rest} = req.body;
+        await TaskList.findByIdAndUpdate(id, rest);
+        const taskUpdated = await TaskList.findById(id);
+
+        res.status(200).json({
+            msg: "Tarea actualizada con éxito",
+            taskUpdated
+        });
+    }
+}

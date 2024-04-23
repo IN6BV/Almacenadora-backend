@@ -1,8 +1,8 @@
 import TaskList from "../taskList/taskList.model.js";
 
-export const existeTastListPorId = async (id) => {
+export const existeTaskListPorId = async (id) => {
     const existeTaskList = await TaskList.findById(id);
     if (!existeTaskList) {
-        throw new Error(`El id ${id} no existe`);
+        throw { status: 400, message: 'No se encontró ninguna tarea con el ID proporcionado.' };
     }
 }

@@ -32,7 +32,7 @@ router.put(
     "/update/:id",
     [
         validarJWT,
-        check("id", "No es un ID válido").custom((id) => existeTaskListPorId(id)),
+        check("id", "No es un ID válido").isMongoId(),
     ], updateMyTask);
 
 router.put(

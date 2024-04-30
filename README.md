@@ -1,2 +1,2 @@
-# Almacenadora_frontend
-Toda la parte de frontend del proyecto de almacenadora
+# Almacenadora-backend
+Parte backend del proyecto de almacenadora, elaborado en base a los requerimientos 

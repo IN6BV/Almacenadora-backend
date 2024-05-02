@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { check } from "express-validator";
-import { createTask, getTasks, getTasksIncomplete, getTasksComplete, updateMyTask, completeTask, deleteTask } from "./taskList.controller.js";
+import { createTask, getTasks, getTasksIncomplete, getTasksComplete, updateMyTask, completeTask, deleteTask, searchByEmployee } from "./taskList.controller.js";
 
 const router = Router();
 
@@ -46,6 +46,11 @@ router.delete(
     [
         check("id", "No es un ID válido").isMongoId(),
     ], deleteTask)
+
+router.get(
+    "/buscar",
+    [
+    ], searchByEmployee);
 
 
 export default router;

@@ -115,3 +115,22 @@ export const completeTask = async (req, res) => {
     }
 }
 
+export const searchByEmployee = async (req, res) => {
+    const { empleadoAsignado } = req.body;
+
+    const query = { empleadoAsignado: { $regex: empleadoAsignado, $options: 'i' } };
+
+    try {
+        const tasks = await TaskList.find(query);
+        const total = tasks.length;
+
+        res.status(200).json({
+            msg: "Tareas asignadas a este empleado",
+            total,
+            tasks
+        });
+    } catch (error) {
+        console.error("Error al buscar tareas:", error);
+        res.status(500).json({ error: "Error al buscar tareas" });
+    }
+}

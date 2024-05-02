@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { check } from "express-validator";
-import { createTask, getTasksIncomplete, getTasksComplete, updateMyTask, completeTask, deleteTask } from "./taskList.controller.js";
+import { createTask, getTasks, getTasksIncomplete, getTasksComplete, updateMyTask, completeTask, deleteTask } from "./taskList.controller.js";
 
 const router = Router();
 
@@ -13,6 +13,11 @@ router.post(
         check("fechaFinalizacion", "La fecha de finalización no puede estar vacía").not().isEmpty(),
         check("empleadoAsignado", "El empleado asignado no puede estar vacío").not().isEmpty(),
     ], createTask);
+
+router.get(
+    "/",
+    [
+    ], getTasks);
 
 router.get(
     "/incomplete",

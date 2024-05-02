@@ -17,7 +17,7 @@ const TaskListSchema = mongoose.Schema({
     },
     estado:{
         type: Boolean,
-        default: null
+        default: false
     },
     empleadoAsignado:{
         type: String,

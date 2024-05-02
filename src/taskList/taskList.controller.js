@@ -13,6 +13,15 @@ export const createTask = async (req, res) => {
     });
 }
 
+export const getTasks = async (req, res) => {
+    const tasks = await TaskList.find();
+
+    res.status(200).json({
+        msg: "Todas las tareas",
+        tasks
+    });
+}
+
 export const getTasksIncomplete = async (req, res) => {
     const query = {estado: false};
 

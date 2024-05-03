@@ -59,6 +59,7 @@ export const updateMyTask = async (req, res) => {
 
     if (task) {
         const { _id, estado, empleadoAsignado, ...rest } = req.body;
+
         await TaskList.findByIdAndUpdate(id, rest);
         const taskUpdated = await TaskList.findById(id);
 
